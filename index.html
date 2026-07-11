@@ -2,254 +2,280 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <title>বিসমিল্লাহ কম্পিউটারস - এ৪ পোর্ট্রেট এডিশন</title>
-    <link href="https://fonts.cdnfonts.com/css/solaimanlipi" rel="stylesheet">
-    
-    <script src="https://cdn.jsdelivr.net/gh/hasan-rahim/Avro-Phonetic-JS@master/dist/avro-phonetic.min.js"></script>
+ <meta name="viewport" content="width=1200, initial-scale=1.0">
+    <title>বিসমিল্লাহ কম্পিউটার্স - ডিজিটাল খাতা</title>
+    <!-- বাংলা ফন্ট (বর্ণমালা স্টাইল) -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        body { 
-            font-family: 'SolaimanLipi', 'Segoe UI', Tahoma, sans-serif; 
-            padding: 10px; color: #333; font-size: 15px; margin: 0;
-            background: url('https://images.unsplash.com/photo-1725818272671-84a427d09527?auto=format&fit=crop&q=80&w=1920') no-repeat center fixed;
+        /* গ্লোবাল স্টাইল */
+        body { margin: 0; padding: 0; font-family: 'Hind Siliguri', sans-serif; transition: background 0.5s; }
+        * { box-sizing: border-box; }
+
+        /* ================= পাবলিক ভিউ স্টাইল ================= */
+        #publicView {
+            /* ইন্সটাগ্রামের ছবি ব্যাকগ্রাউন্ড হিসেবে (URL এর শেষে media/?size=l যুক্ত করা হয়েছে যাতে ছবিটি সরাসরি লোড হয়) */
+            background: url('https://www.instagram.com/p/DNHfI0Rzs8A/media/?size=l') no-repeat center center fixed, #1a1a1a;
             background-size: cover;
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+            position: relative;
         }
-
-        /* --- লগইন পেজ --- */
-        #loginOverlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                        url('https://images.unsplash.com/photo-1421789665209-c9b2a435e3dc?auto=format&fit=crop&q=80&w=1920') no-repeat center;
-            background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000; backdrop-filter: blur(8px);
-        }
-        .zori-text { font-size: 65px; font-weight: 900; background: linear-gradient(#FFF5A5, #FFD700, #B8860B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 6px 4px rgba(0,0,0,0.8)); margin-bottom: 25px; animation: float 3s infinite; }
-        .login-content { display: flex; flex-direction: column; align-items: center; gap: 15px; }
-
-        /* --- 3D বাটন --- */
-        .btn-3d { font-family: 'SolaimanLipi'; padding: 10px 18px; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; transition: 0.1s; margin: 3px; font-size: 15px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
-        .btn-stock { background: #3498db; box-shadow: 0 5px 0 #2980b9; }
-        .btn-sales { background: #9b59b6; box-shadow: 0 5px 0 #8e44ad; }
-        .btn-save { background: #27ae60; box-shadow: 0 5px 0 #219150; }
-        .btn-logout { background: #e74c3c; box-shadow: 0 5px 0 #c0392b; }
-        .btn-3d:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.2); }
-
-        /* --- মেইন কন্টেইনার --- */
-        .container { max-width: 1100px; margin: auto; background: rgba(255, 255, 255, 0.95); padding: 25px; border-radius: 15px; display: none; box-shadow: 0 10px 40px rgba(0,0,0,0.3); position: relative; }
         
-        .header-wrapper { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #1e5631; padding-bottom: 10px; margin-bottom: 15px; }
-        .shop-header { display: flex; align-items: center; gap: 15px; }
+        .glass-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 950px;
+            margin: 60px auto;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            text-align: center;
+            position: relative;
+        }
+
+        /* ঘড়ি একদম উপরে ডানে */
+        #clock {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #FFD700;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid #FFD700;
+        }
+
+        /* হেডার ও লোগো */
+        .logo { width: 120px; height: 120px; border-radius: 50%; border: 3px solid #FFD700; margin: 0 auto 15px; display: block; }
         
-        .custom-logo { 
-            width: 85px; height: 85px; border-radius: 50%; 
-            border: 2px solid #1e5631; object-fit: cover; 
-            image-rendering: -webkit-optimize-contrast; 
-            filter: contrast(1.1) brightness(1.05);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        /* স্টাইলিশ অ্যানিমেটেড নাম */
+        .shop-name {
+            font-size: 50px;
+            font-weight: bold;
+            margin: 10px 0;
+            background: linear-gradient(90deg, #ffffff, #FFD700, #ffffff);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+        
+        .details { font-size: 18px; color: #e0e0e0; margin-bottom: 30px; }
+        
+        /* টেবিল ও টোটাল */
+        .total-box { background: rgba(255, 215, 0, 0.9); color: black; padding: 15px; font-weight: bold; font-size: 22px; margin-bottom: 20px; border-radius: 10px; }
+        .table-wrap { height: 400px; overflow-y: auto; border-radius: 10px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.2); }
+        table { width: 100%; border-collapse: collapse; text-align: center; }
+        th { background: #FFD700; color: #1a1a1a; padding: 15px; position: sticky; top: 0; font-size: 18px; }
+        td { padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); font-size: 16px; }
+
+        /* অ্যাডমিন যাওয়ার বাটন */
+        .goto-admin-btn { position: fixed; bottom: 20px; right: 20px; padding: 12px 25px; background: #FFD700; color: #1a1a1a; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+
+        /* ================= অ্যাডমিন ভিউ স্টাইল ================= */
+        #adminArea {
+            display: none;
+            background: url('https://images.unsplash.com/photo-1421789665209-c9b2a435e3dc?auto=format&fit=crop&q=80&w=1920') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
 
-        .shop-details { display: flex; flex-direction: column; gap: 2px; }
-        .shop-name { font-size: 24px; color: #1a237e; margin: 0; font-weight: bold; line-height: 1.1; }
-        .header-info { font-size: 14px; font-weight: bold; color: #444; margin: 0; line-height: 1.2; }
-
-        .print-date { font-size: 13px; font-weight: bold; color: #555; text-align: right; }
-
-        /* --- টেবিল ডিজাইন --- */
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; table-layout: fixed; }
-        th, td { border: 1px solid #1e5631; padding: 8px 4px; text-align: center; word-wrap: break-word; font-size: 14px; }
-        th { background: #e8f5e9 !important; color: #1a237e !important; border: 2px solid #1e5631 !important; }
-        .input-cell { width: 95%; border: none; background: transparent; text-align: center; font-family: 'SolaimanLipi'; font-size: 14px; outline: none; }
-
-        /* --- প্রিন্ট লজিক --- */
-        @media print {
-            @page { size: A4 portrait; margin: 0.8cm; }
-            body { background: white !important; padding: 0 !important; -webkit-print-color-adjust: exact; }
-            .no-print { display: none !important; }
-            .container { display: block !important; width: 100% !important; border: none !important; box-shadow: none !important; background: white !important; padding: 0 !important; }
-            table { width: 100% !important; table-layout: auto !important; }
-            body.print-stock th:nth-child(n+8), body.print-stock td:nth-child(n+8) { display: none !important; }
-            body.print-sales th:nth-child(2), body.print-sales td:nth-child(2),
-            body.print-sales th:nth-child(3), body.print-sales td:nth-child(3),
-            body.print-sales th:nth-child(4), body.print-sales td:nth-child(4),
-            body.print-sales th:nth-child(5), body.print-sales td:nth-child(5),
-            body.print-sales th:nth-child(6), body.print-sales td:nth-child(6),
-            body.print-sales th:nth-child(7), body.print-sales td:nth-child(7) { display: none !important; }
-            th { background: #f2f2f2 !important; color: black !important; border: 1px solid #000 !important; }
-            td { border: 1px solid #000 !important; }
+        .admin-brand { font-size: 55px; color: #FFD700; margin-bottom: 30px; text-shadow: 3px 3px 6px rgba(0,0,0,0.8); font-weight: 700; }
+        
+        .admin-glass-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 50px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 450px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
+        
+        .avatar-ring { width: 90px; height: 90px; border: 3px solid #FFD700; border-radius: 50%; margin: 0 auto 20px; }
+        .admin-title { color: #fff; margin-bottom: 25px; font-size: 24px; font-weight: bold; }
+
+        /* স্টাইলিশ বড় ইনপুট বক্স */
+        input {
+            width: 100%; padding: 18px; margin-bottom: 20px;
+            border: none; border-radius: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 18px; font-family: 'Hind Siliguri', sans-serif;
+            outline: none; transition: 0.3s;
+        }
+        input:focus { box-shadow: 0 0 15px #FFD700; }
+        
+        /* স্টাইলিশ বাটন */
+        .action-btn {
+            width: 100%; padding: 18px; border: none; border-radius: 12px;
+            background-color: #27ae60; color: white;
+            font-size: 20px; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: 'Hind Siliguri', sans-serif;
+        }
+        .action-btn:hover { background-color: #219150; transform: scale(1.02); }
+
+        .back-btn { margin-top: 15px; color: white; text-decoration: underline; cursor: pointer; display: inline-block; font-size: 16px; }
+
     </style>
 </head>
 <body>
 
-<div id="loginOverlay">
-    <div class="zori-text">বিসমিল্লাহ কম্পিউটারস</div>
-    <div style="background: rgba(255,255,255,0.15); padding: 40px; border-radius: 20px; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); width: 320px;">
-        <img src="https://scontent.fdac185-1.fna.fbcdn.net/v/t39.30808-1/519723426_1663218567959916_6251427606797456099_n.jpg?stp=cp0_dst-jpg_s60x60_tt6&_nc_cat=102&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeGNvZL8nbcBlfkRehLV3DfY0RXm_4AYRVrRFeb_gBhFWmn3VnkU9el-ZNf5wC-h4H5JilqueyVamGEwdaS_XDuL&_nc_ohc=5AytextxWOoQ7kNvwFIKgJK&_nc_oc=Adqu5jZJ0mXC3F8lxPgiJiFKIaJvq7CcRZ65t3_G_XMCfhvGhN42lTlWhkTRqO3CZ7k&_nc_zt=24&_nc_ht=scontent.fdac185-1.fna&_nc_gid=OuQ_mOm6a-fy2wrYi2ruYw&_nc_ss=7a30f&oh=00_AfxgrGXpJba00mbM4ZBgbPKYgSGsm6bbq-zbS2W0z4yRmA&oe=69C2A07F" style="width:100px; height:100px; border-radius:50%; margin-bottom:15px; border:3px solid gold;">
-        <h3 style="color:white; margin: 10px 0;">ম্যানেজমেন্ট লগইন</h3>
-        <div class="login-content">
-            <input type="text" id="userInput" placeholder="ইউজারনেম" style="width: 100%; padding: 12px; border-radius: 8px; border: none;">
-            <input type="password" id="passInput" placeholder="পাসওয়ার্ড" style="width: 100%; padding: 12px; border-radius: 8px; border: none;">
-            <button class="btn-3d btn-save" style="width: 100%; margin-top: 10px;" onclick="attemptLogin()">প্রবেশ করুন</button>
-        </div>
-    </div>
-</div>
-
-<div class="container" id="mainApp">
-    <div class="header-wrapper">
-        <div class="shop-header">
-            <img src="https://scontent.fdac185-1.fna.fbcdn.net/v/t39.30808-1/519723426_1663218567959916_6251427606797456099_n.jpg?stp=cp0_dst-jpg_s60x60_tt6&_nc_cat=102&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeGNvZL8nbcBlfkRehLV3DfY0RXm_4AYRVrRFeb_gBhFWmn3VnkU9el-ZNf5wC-h4H5JilqueyVamGEwdaS_XDuL&_nc_ohc=5AytextxWOoQ7kNvwFIKgJK&_nc_oc=Adqu5jZJ0mXC3F8lxPgiJiFKIaJvq7CcRZ65t3_G_XMCfhvGhN42lTlWhkTRqO3CZ7k&_nc_zt=24&_nc_ht=scontent.fdac185-1.fna&_nc_gid=OuQ_mOm6a-fy2wrYi2ruYw&_nc_ss=7a30f&oh=00_AfxgrGXpJba00mbM4ZBgbPKYgSGsm6bbq-zbS2W0z4yRmA&oe=69C2A07F" class="custom-logo" alt="Logo">
-            <div class="shop-details">
-                <h1 class="shop-name">বিসমিল্লাহ কম্পিউটারস এন্ড মোবাইল সার্ভিসিং</h1>
-                <p class="header-info">📍 হামেদখানের হাট, কালকিনি, মাদারীপুর।</p>
-                <p class="header-info">📞 01770434746, 09649434746</p>
+    <!-- ================= পাবলিক ভিউ ================= -->
+    <div id="publicView">
+        <div id="clock"></div>
+        
+        <div class="glass-container">
+            <img src="https://lh3.googleusercontent.com/a/ACg8ocIz9FiQoRbfM4vmwxWqrKLtiP3vRJ-u5q8-Sh8sagkRzhvcTOi4=s288-c-no" class="logo" alt="Logo">
+            <div class="shop-name">বিসমিল্লাহ কম্পিউটার্স</div>
+            <div class="details">ডিক্রিরচর হাট, কালকিনি, মাদারীপুর। | মোবাইল: ০১৭৭০৪৩৪৭৪৬</div>
+  
+            
+            <div class="total-box" ">আপনার প্রতিষ্ঠান: মহিষমারী বালিকা উচ্চ বিদ্যালয় (১১০৬৪৮)</div>
+            <div class="total-box" id="totalDisplay">সর্বমোট বকেয়া: ডাটা লোড হচ্ছে...</div>
+     <div class="details">সর্বশেষ ০৫টি কাজের বিবরণ</div>
+             <div class="org-name"> (১১০৬৪৮)</div>
+            <div class="table-wrap">
+                <table id="dataTable">
+                    <tr>
+                        <th>তারিখ</th>
+                        <th>কাজের বিবরণ</th>
+                        <th>পিস</th>
+                        <th>দর</th>
+                        <th>মোট মূল্য</th>
+                    </tr>
+                </table>
             </div>
         </div>
-        <div class="print-date" id="dateDisplay"></div>
-    </div>
-
-    <div class="no-print" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; background: #f0f9f4; padding: 15px; border-radius: 10px;">
-        <div style="display: flex; gap: 8px; align-items: center;">
-            <input type="text" id="searchInput" onkeypress="if(event.key === 'Enter') filterData()" placeholder="মালের নাম..." style="padding: 10px; border: 1px solid #1e5631; border-radius: 5px; width: 150px;">
-            <select id="categoryFilter" onchange="filterData()" style="padding: 10px; border-radius: 5px; border: 1px solid #1e5631;">
-                <option value="">সকল ক্যাটাগরি</option>
-            </select>
-            <button class="btn-3d btn-stock" onclick="printR('stock')">🖨️ স্টক</button>
-            <button class="btn-3d btn-sales" onclick="printR('sales')">🖨️ সেলস</button>
-        </div>
-        <div>
-            <span id="syncStatus" style="display:none; color: green; font-weight: bold; margin-right: 10px;">সিঙ্ক হচ্ছে...</span>
-            <button class="btn-3d btn-save" onclick="saveData()">💾 ডাটা সেভ</button>
-            <button class="btn-3d btn-logout" onclick="location.reload()">🔒 লগআউট</button>
-        </div>
-    </div>
-
-    <table id="hishabTable">
-        <thead>
-            <tr>
-                <th width="40">নং</th>
-                <th width="180">মালের নাম</th>
-                <th width="110">ক্যাটাগরি</th>
-                <th width="65">পরিমাণ</th>
-                <th width="85">ক্রয়মূল্য</th>
-                <th width="100">মোট মূল্য</th>
-                <th>মন্তব্য</th>
-                <th width="75">বিক্রি</th>
-                <th width="75">অবশিষ্ট</th>
-                <th class="no-print" width="45">#</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-    </table>
-    
-    <div class="no-print" style="margin-top: 25px;">
-        <button class="btn-3d" style="background: #f39c12; box-shadow: 0 5px 0 #d35400;" onclick="addRow()">➕ নতুন মাল যোগ করুন</button>
-    </div>
-</div>
-
-<script>
-    // আপনার নতুন গুগল স্ক্রিপ্ট লিঙ্ক এখানে বসানো হয়েছে
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyaiZOUJAg2Mg85z94LF0Txr3CuvUac-8z0wYm0QYcNNjgou6BBHD8dPxrBMzhBwMTS-w/exec";
-    const VALID_USER = "admin", VALID_PASS = "0000";
-
-    function updateDate() {
-        const d = new Date();
-        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        document.getElementById('dateDisplay').innerText = "তারিখ: " + d.toLocaleDateString('bn-BD', options);
-    }
-
-    function attemptLogin() {
-        if(document.getElementById('userInput').value === VALID_USER && document.getElementById('passInput').value === VALID_PASS) {
-            document.getElementById('loginOverlay').style.display = 'none';
-            document.getElementById('mainApp').style.display = 'block';
-            updateDate(); fetchData();
-        } else { alert("ভুল তথ্য!"); }
-    }
-
-    function addRow(d = []) {
-        const row = document.getElementById('tableBody').insertRow();
-        row.innerHTML = `
-            <td></td>
-            <td><input type="text" class="input-cell p-name avro-bangla" value="${d[1]||''}"></td>
-            <td><input type="text" class="input-cell p-cat avro-bangla" value="${d[2]||''}" oninput="updateCats()"></td>
-            <td><input type="number" class="input-cell p-qty" value="${d[3]||0}" oninput="calc(this)"></td>
-            <td><input type="number" class="input-cell p-price" value="${d[4]||0}" oninput="calc(this)"></td>
-            <td class="p-total" style="font-weight:bold; color:#1e5631;">0</td>
-            <td><input type="text" class="input-cell p-note avro-bangla" value="${d[5]||''}"></td>
-            <td><input type="number" class="input-cell p-sold" value="${d[6]||0}" oninput="calc(this)"></td>
-            <td class="p-rem" style="font-weight:bold; color:#e67e22;">0</td>
-            <td class="no-print"><span style="color:red; cursor:pointer; font-weight:bold;" onclick="this.closest('tr').remove();updateSN();">✖</span></td>
-        `;
         
-        // অটো-বাংলা টাইপিং এনাবেল করা
-        row.querySelectorAll('.avro-bangla').forEach(input => {
-            input.addEventListener('keydown', function() {
-                if (typeof avroPhonetic !== 'undefined') avroPhonetic.parse(this);
+        <button class="goto-admin-btn" onclick="showAdminArea()">অ্যাডমিন লগইন</button>
+    </div>
+
+
+    <!-- ================= অ্যাডমিন ভিউ (লগইন এবং ইনপুট) ================= -->
+    <div id="adminArea">
+        <div class="admin-brand">বিসমিল্লাহ কম্পিউটার্স</div>
+        
+        <!-- লগইন বক্স -->
+        <div class="admin-glass-box" id="loginBox">
+            <div class="avatar-ring"></div>
+            <div class="admin-title">ম্যানেজমেন্ট লগইন</div>
+            <input type="text" id="username" placeholder="ইউজারনেম">
+            <input type="password" id="password" placeholder="পাসওয়ার্ড">
+            <button class="action-btn" onclick="checkLogin()">প্রবেশ করুন</button>
+            <span class="back-btn" onclick="showPublicArea()">পাবলিক ভিউতে ফিরে যান</span>
+        </div>
+
+        <!-- ইনপুট বক্স (লগইনের পর আসবে) -->
+        <div class="admin-glass-box" id="inputBox" style="display: none;">
+            <div class="admin-title">নতুন হিসাব যুক্ত করুন</div>
+            <input type="date" id="date">
+            <input type="text" id="desc" placeholder="কাজের বিবরণ">
+            <input type="number" id="qty" placeholder="পিস">
+            <input type="number" id="rate" placeholder="দর">
+<input type="number" id="totalAmount" placeholder="মোট টাকা">
+            <button class="action-btn" id="submitBtn" onclick="submitData()">সেভ করুন</button>
+            <span class="back-btn" onclick="showPublicArea()">পাবলিক ভিউতে ফিরে যান</span>
+        </div>
+    </div>
+
+
+    <!-- ================= স্ক্রিপ্ট সেকশন ================= -->
+    <script>
+        // আপনার গুগল অ্যাপস স্ক্রিপ্ট লিংক
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyMAA4NuJoT_gtmWEypprZBUx9VkYv9YVG2s8omvtTZCAW8NrjEPDbzwp45mY8BLTWXIA/exec";
+
+        // ডিজিটাল ঘড়ি
+        function updateClock() {
+            document.getElementById('clock').innerText = new Date().toLocaleTimeString('bn-BD', { hour12: true });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // পেজ লোড হলে ডাটা আনা
+        function loadData() {
+            fetch(SCRIPT_URL)
+                .then(res => res.json())
+                .then(data => {
+                    let table = document.getElementById('dataTable');
+                    // আগের ডাটা মুছে শুধু হেডার রাখা
+                    table.innerHTML = `<tr><th>তারিখ</th><th>কাজের বিবরণ</th><th>পিস</th><th>দর</th><th>মোট মূল্য</th></tr>`;
+                    
+                    let total = 0;
+                    // গুগল শিটের প্রথম লাইন (Header) বাদ দিয়ে ২য় লাইন থেকে ডাটা দেখানো
+                    data.slice(1).forEach(row => {
+                        table.innerHTML += `<tr><td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td><td>${row[4]}</td></tr>`;
+                        total += Number(row[4] || 0);
+                    });
+                    document.getElementById('totalDisplay').innerText = "সর্বমোট বকেয়া: " + total.toLocaleString('bn-BD') + " টাকা";
+                })
+                .catch(err => {
+                    document.getElementById('totalDisplay').innerText = "ডাটা লোড করতে সমস্যা হয়েছে!";
+                });
+        }
+        window.onload = loadData;
+
+        // ভিউ চেঞ্জ করার ফাংশন
+        function showAdminArea() {
+            document.getElementById('publicView').style.display = 'none';
+            document.getElementById('adminArea').style.display = 'flex';
+        }
+        function showPublicArea() {
+            document.getElementById('adminArea').style.display = 'none';
+            document.getElementById('publicView').style.display = 'block';
+            loadData(); // ফিরে আসার সময় ডাটা রিফ্রেশ হবে
+        }
+
+        // লগইন চেক
+        function checkLogin() {
+            let u = document.getElementById('username').value;
+            let p = document.getElementById('password').value;
+            // ইউজারনেম: admin, পাসওয়ার্ড: 123456
+            if(u === "admin" && p === "123456") {
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('inputBox').style.display = 'block';
+                // আজকের তারিখ অটোমেটিক সেট করা
+                document.getElementById('date').valueAsDate = new Date();
+            } else {
+                alert("ভুল ইউজারনেম বা পাসওয়ার্ড!");
+            }
+        }
+
+        // ডাটা গুগল শিটে পাঠানো
+        function submitData() {
+            let btn = document.getElementById('submitBtn');
+            btn.innerText = "সেভ হচ্ছে...";
+            btn.style.backgroundColor = "#f39c12";
+
+            let data = new URLSearchParams({
+                date: document.getElementById('date').value,
+                desc: document.getElementById('desc').value,
+                qty: document.getElementById('qty').value,
+                rate: document.getElementById('rate').value
             });
-        });
 
-        updateSN(); calc(row.querySelector('.p-qty')); updateCats();
-    }
-
-    function calc(el) {
-        const r = el.closest('tr');
-        const q = Number(r.querySelector('.p-qty').value), p = Number(r.querySelector('.p-price').value), s = Number(r.querySelector('.p-sold').value);
-        r.querySelector('.p-total').innerText = (q * p);
-        r.querySelector('.p-rem').innerText = (q - s);
-    }
-
-    function updateSN() { document.querySelectorAll('#tableBody tr').forEach((r, i) => r.cells[0].innerText = i + 1); }
-
-    function updateCats() {
-        const cats = new Set();
-        document.querySelectorAll('.p-cat').forEach(i => { if(i.value.trim()) cats.add(i.value.trim()); });
-        const select = document.getElementById('categoryFilter');
-        const cur = select.value;
-        select.innerHTML = '<option value="">সকল ক্যাটাগরি</option>';
-        cats.forEach(c => { const o = document.createElement('option'); o.value = c; o.innerText = c; select.appendChild(o); });
-        select.value = cur;
-    }
-
-    function filterData() {
-        const s = document.getElementById('searchInput').value.toUpperCase();
-        const c = document.getElementById('categoryFilter').value.toUpperCase();
-        document.querySelectorAll('#tableBody tr').forEach(r => {
-            const name = r.querySelector('.p-name').value.toUpperCase();
-            const cat = r.querySelector('.p-cat').value.toUpperCase();
-            r.style.display = (name.includes(s) && (c === "" || cat === c)) ? "" : "none";
-        });
-    }
-
-    function printR(t) {
-        updateDate();
-        document.body.classList.remove('print-stock', 'print-sales');
-        document.body.classList.add('print-' + t);
-        setTimeout(() => { window.print(); }, 500);
-    }
-
-    async function saveData() {
-        document.getElementById('syncStatus').style.display = "inline";
-        const rows = Array.from(document.querySelectorAll('#tableBody tr')).map((r, i) => [
-            i + 1, r.querySelector('.p-name').value, r.querySelector('.p-cat').value, r.querySelector('.p-qty').value, r.querySelector('.p-price').value, r.querySelector('.p-note').value, r.querySelector('.p-sold').value
-        ]);
-        try { 
-            await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(rows) }); 
-            alert("সেভ সম্পন্ন!"); 
-        } catch (e) { 
-            alert("ত্রুটি!"); 
+            fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: data })
+                .then(() => { 
+                    alert("তথ্য সফলভাবে ক্লাউডে সেভ হয়েছে!"); 
+                    // ফর্ম ক্লিয়ার করা
+                    document.getElementById('desc').value = '';
+                    document.getElementById('qty').value = '';
+                    document.getElementById('rate').value = '';
+                    
+                    btn.innerText = "সেভ করুন";
+                    btn.style.backgroundColor = "#27ae60";
+                });
         }
-        document.getElementById('syncStatus').style.display = "none";
-    }
-
-    async function fetchData() {
-        try { 
-            const r = await fetch(SCRIPT_URL); 
-            const d = await r.json(); 
-            document.getElementById('tableBody').innerHTML = ""; 
-            if(d.length) d.forEach(addRow); 
-            else addRow(); 
-        } catch (e) { 
-            addRow(); 
-        }
-    }
-</script>
+    </script>
 </body>
 </html>
