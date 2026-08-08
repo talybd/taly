@@ -278,22 +278,26 @@
 </div>
 
 <script>
-   
+    // প্রথমে ফর্ম এবং প্রিন্ট বাটন সিলেক্ট করা হলো
+    const form = document.getElementById('eftForm');
+    const printBtn = document.getElementById('printBtn');
+
+    // ইনপুট চেক করে বাটন এনাবল/ডিসএবল করা
     form.addEventListener('input', () => {
         printBtn.disabled = !form.checkValidity();
     });
 
     function validateAndPrint() {
-        if (!eftForm.checkValidity()) {
-            alert('দয়া করে ফর্মের সকল ঘর সঠিকভাবে পূরণ করুন!');
+        if (!form.checkValidity()) {
+            alert('দয়া করে ফর্মের সকল ঘর সঠিকভাবে পূরণ করুন!');
             return;
         }
         window.print();
     }
 
     window.addEventListener('beforeprint', (event) => {
-        if (!eftForm.checkValidity()) {
-            alert('খালি ফরম প্রিন্ট করা নিষেধ! দয়া করে সকল ঘর পূরণ করুন।');
+        if (!form.checkValidity()) {
+            alert('খালি ফরম প্রিন্ট করা নিষেধ! দয়া করে সকল ঘর পূরণ করুন।');
             document.getElementById('mainContainer').style.display = 'none';
         } else {
             document.getElementById('mainContainer').style.display = 'block';
@@ -301,22 +305,21 @@
     });
 
     // রাইট-ক্লিক মেনু সম্পূর্ণ ব্লক করা
-document.addEventListener('contextmenu', function (event) {
-    event.preventDefault();
-});
-
-// কিবোর্ড শর্টকাট (F12, Inspect, View Source, Save Page) ব্লক করা
-document.addEventListener('keydown', function (event) {
-    if (
-        event.key === 'F12' || 
-        (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'J' || event.key === 'C')) ||
-        (event.ctrlKey && (event.key === 'U' || event.key === 'S' || event.key === 's'))
-    ) {
+    document.addEventListener('contextmenu', function (event) {
         event.preventDefault();
-        return false;
-    }
-});
-</script>
+    });
 
+    // কিবোর্ড শর্টকাট (F12, Inspect, View Source, Save Page) ব্লক করা
+    document.addEventListener('keydown', function (event) {
+        if (
+            event.key === 'F12' || 
+            (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'J' || event.key === 'C')) ||
+            (event.ctrlKey && (event.key === 'U' || event.key === 'S' || event.key === 's'))
+        ) {
+            event.preventDefault();
+            return false;
+        }
+    });
+</script>
 </body>
 </html>
