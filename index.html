@@ -284,7 +284,7 @@
     });
 
     function validateAndPrint() {
-        if (!form.checkValidity()) {
+        if (!eftForm.checkValidity()) {
             alert('দয়া করে ফর্মের সকল ঘর সঠিকভাবে পূরণ করুন!');
             return;
         }
@@ -292,7 +292,7 @@
     }
 
     window.addEventListener('beforeprint', (event) => {
-        if (!form.checkValidity()) {
+        if (!eftForm.checkValidity()) {
             alert('খালি ফরম প্রিন্ট করা নিষেধ! দয়া করে সকল ঘর পূরণ করুন।');
             document.getElementById('mainContainer').style.display = 'none';
         } else {
