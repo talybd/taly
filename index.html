@@ -278,24 +278,27 @@
 </div>
 
 <script>
-    // রাইট-ক্লিক মেনু সম্পূর্ণ ব্লক করা
-document.addEventListener('contextmenu', function (event) {
-    event.preventDefault();
-});
-
-// কিবোর্ড শর্টকাট (F12, Inspect, View Source, Save Page) ব্লক করা
-document.addEventListener('keydown', function (event) {
-    if (
-        event.key === 'F12' || 
-        (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'J' || event.key === 'C')) ||
-        (event.ctrlKey && (event.key === 'U' || event.key === 'S' || event.key === 's'))
-    ) {
+   <script>
+    // রাইট-ক্লিক মেনু ব্লক করা
+    document.addEventListener('contextmenu', function (event) {
         event.preventDefault();
-        return false;
-    }
-});
+    });
+
+    // ইনস্পেক্ট এলিমেন্ট, সোর্স কোড ও ডেভেলপার টুলস শর্টকাট ব্লক করা
+    document.addEventListener('keydown', function (event) {
+        if (
+            event.key === 'F12' || 
+            (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'J' || event.key === 'C')) ||
+            (event.ctrlKey && (event.key === 'U' || event.key === 'S' || event.key === 's'))
+        ) {
+            event.preventDefault();
+            return false;
+        }
+    });
+
     const form = document.getElementById('eftForm');
     const printBtn = document.getElementById('printBtn');
+    // ... (বাকি আগের কোড অপরিবর্তিত থাকবে)
 
     form.addEventListener('input', () => {
         printBtn.disabled = !form.checkValidity();
