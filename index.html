@@ -10,7 +10,7 @@
             margin: 0.6in 0.6in;
         }
         body { 
-            font-family: 'Tiro Bangla', 'Times New Roman'; 
+            font-family: 'Tiro Bangla', 'Calibri'; 
             font-size: 11.5px; 
             color: #000; 
             line-height: 1.35; 
@@ -74,14 +74,16 @@
         .col-3 { width: 45%; }
         
         input.table-input { 
-            width: 100%; 
-            border: none; 
-            outline: none; 
-            background: transparent; 
-            font-size: 11.5px; 
-            font-family: inherit; 
-            box-sizing: border-box;
-        }
+    width: 100%; 
+    border: none; 
+    outline: none; 
+    background: transparent; 
+    font-size: 11.5px; 
+    font-family: 'Arial', sans-serif; /* Times New Roman বা Tiro Bangla এর বদলে Arial বা sans-serif ব্যবহার করা সবচেয়ে ভালো */
+    font-variant-numeric: lining-nums; /* এই কোডটি সংখ্যাগুলোকে এক সমান ও স্বাভাবিক রাখবে */
+    box-sizing: border-box;
+}
+        
         input.table-input:focus { 
             background: #f0f0f0; 
         }
